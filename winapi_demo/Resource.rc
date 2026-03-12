@@ -1,0 +1,47 @@
+#include "resource.h"
+#include <windows.h>
+
+// ===== MENU GŁÓWNE =====
+// Ten zasób opisuje strukturę paska menu.
+IDR_MAINMENU MENU
+BEGIN
+    // Pierwsze rozwijane menu na pasku.
+    POPUP "&Plik"
+    BEGIN
+        // Ampersand przed literą oznacza skrót Alt+litera w menu.
+        MENUITEM "&Wyczyść tekst",      IDM_CLEAR_TEXT
+        MENUITEM "&Dialog ustawień...", IDM_OPEN_DIALOG
+        MENUITEM SEPARATOR
+        MENUITEM "Za&kończ",            IDM_EXIT
+    END
+
+    // Drugie rozwijane menu na pasku.
+    POPUP "P&omoc"
+    BEGIN
+        MENUITEM "&O programie", IDM_ABOUT
+    END
+END
+
+// ===== DIALOG MODALNY =====
+// DIALOGEX opisuje pozycję, rozmiar i kontrolki dialogu.
+IDD_SETTINGS DIALOGEX 0, 0, 220, 90
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Ustawienia"
+FONT 9, "Segoe UI"
+BEGIN
+    // Tekst informacyjny w dialogu.
+    LTEXT       "Nowy tytuł okna:", -1, 10, 10, 70, 10
+
+    // Pole edycji, z którego pobierzemy tekst w DlgProc.
+    EDITTEXT    IDC_DLG_EDIT_TITLE, 10, 24, 130, 14, ES_AUTOHSCROLL
+
+    // Checkbox - dodatkowa opcja dialogu.
+    CONTROL     "Wyczyść historię po OK", IDC_DLG_CHK_CLEAR_HISTORY,
+                "Button", BS_AUTOCHECKBOX | WS_TABSTOP, 10, 46, 110, 12
+
+    // Standardowy przycisk OK. Jego ID to IDOK.
+    DEFPUSHBUTTON "OK", IDOK, 150, 10, 50, 14
+
+    // Standardowy przycisk Cancel. Jego ID to IDCANCEL.
+    PUSHBUTTON    "Anuluj", IDCANCEL, 150, 30, 50, 14
+END
